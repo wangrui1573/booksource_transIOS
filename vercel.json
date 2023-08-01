@@ -7,15 +7,15 @@
         },
         {
           "src": "./json/**/*",
-          "use": "@vercel/python"
+          "use": "@vercel/static"
         },
         {
             "src": "./templates/**/*",
-            "use": "@vercel/python"
+            "use": "@vercel/static"
           },
         {
           "src": "./api/**/*",
-          "use": "@vercel/python"
+          "use": "@vercel/static"
         }
       ],
     "routes": [
