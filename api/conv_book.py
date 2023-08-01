@@ -1,10 +1,5 @@
 import json
-import os
 import requests
-from flask import Flask, render_template, request, send_from_directory, url_for
-from werkzeug.utils import secure_filename
-
-app = Flask(__name__)
 
 def replace_selectors(json_data):
     # 替换选择器的函数
@@ -46,36 +41,24 @@ def replace_selectors(json_data):
                 if isinstance(item, dict):
                     replace_selectors(item)
 
+    # 增加替换规则，当"ruleExplore": []时，替换为"ruleExplore": "##"
+    if "ruleExplore" in json_data and not json_data["ruleExplore"]:
+        json_data["ruleExplore"] = "##"
+
 if __name__ == "__main__":
-    @app.route('/', methods=['GET', 'POST'])
-    def index():
-        if request.method == 'POST':
-            json_url = request.form['json_url']
-            response = requests.get(json_url)
-            json_data = response.json()
-            replace_selectors(json_data)
+    # 用户输入 JSON 文件的 URL
+    json_url = input("请输入 JSON 文件的 URL: ")
 
-            # 提取文件名，并保存 JSON 内容到文件
-            file_name = json_url.split('/')[-1]
-            json_dir = os.path.join(os.path.dirname(__file__), 'json')
-            if not os.path.exists(json_dir):
-                os.makedirs(json_dir)
+    # 下载 JSON 数据
+    response = requests.get(json_url)
+    json_data = response.json()
 
-            json_path = os.path.join(json_dir, file_name)
-            with open(json_path, 'w', encoding='utf-8') as file:
-                json.dump(json_data, file, indent=4, ensure_ascii=False)
+    # 替换选择器
+    replace_selectors(json_data)
 
-            # 生成下载链接
-            download_link = url_for('download', file_name=file_name)
+    # 提取文件名，并保存 JSON 内容到文件
+    file_name = json_url.split('/')[-1]
+    with open(file_name, 'w', encoding='utf-8') as file:
+        json.dump(json_data, file, indent=4, ensure_ascii=False)
 
-            return render_template('result.html', json_data=json_data, download_link=download_link)
-        return render_template('form.html')
-
-    @app.route('/json/<path:file_name>', methods=['GET'])
-    def download(file_name):
-        json_dir = os.path.join(os.path.dirname(__file__), 'json')
-        file_path = os.path.join(json_dir, file_name)
-        return send_from_directory(json_dir, file_name, as_attachment=True)
-
-
-    app.run(debug=True)
+    print(f"JSON 内容已按照新的替换原则进行替换并保存为文件：{file_name}")
