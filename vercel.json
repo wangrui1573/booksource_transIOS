@@ -9,11 +9,11 @@
     "routes": [
     {
       "src": "/(.*)",
-      "dest": "./api/conv_book_web.py"
+      "dest": "api/conv_book_web.py"
     },
     {
         "src": "/ios/(.*)",
-        "dest": "./api/index.html"
+        "dest": "api/index.html"
       }
     ]
 }
