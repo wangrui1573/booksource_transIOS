@@ -78,4 +78,4 @@ if __name__ == "__main__":
         return send_from_directory(json_dir, file_name, as_attachment=True)
 
 
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
