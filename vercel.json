@@ -7,13 +7,17 @@
       }
     ],
     "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/conv_book_web.py"
-    },
-    {
-        "src": "/ios/(.*)",
-        "dest": "api/index.html"
+     {
+          "src": "/json/(.*)",
+          "dest": "/api/json/$1"
+      },
+      {
+          "src": "/templates/(.*)",
+          "dest": "/api/templates/$1"
+      },
+      {
+          "src": "/(.*)",
+          "dest": "/api/$1"
       }
     ]
 }
