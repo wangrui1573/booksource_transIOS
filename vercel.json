@@ -7,9 +7,9 @@
       }
     ],
     "routes": [
-      {
-        "src": "/api/conv_book_web.py",
-        "dest": "/api"
-      }
+    {
+      "src": "/(.*)",
+      "dest": "./api/conv_book_web.py"
+    }
     ]
 }
