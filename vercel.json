@@ -1,11 +1,23 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "./api/(.*)",
-        "use": "@vercel/python"
-      }
-    ],
+        {
+          "src": "./api/conv_book_web.py",
+          "use": "@vercel/python"
+        },
+        {
+          "src": "./json/**/*",
+          "use": "@vercel/static"
+        },
+        {
+            "src": "./templates/**/*",
+            "use": "@vercel/static"
+          },
+        {
+          "src": "./api/**/*",
+          "use": "@vercel/static"
+        }
+      ],
     "routes": [
      {
           "src": "/json/(.*)",
