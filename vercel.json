@@ -1,5 +1,14 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/api/conv_book_web" }
-    ]
-  }
+  "builds": [
+      {
+          "src": "api/conv_book_web.py",
+          "use": "@vercel/python"
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "api/conv_book_web.py"
+      }
+  ]
+}
