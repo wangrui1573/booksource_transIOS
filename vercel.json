@@ -1,14 +1,14 @@
 {
-  "builds": [
+    "version": 2,
+    "builds": [
       {
-          "src": "conv_book_web.py",
-          "use": "@vercel/python"
+        "src": "./api/conv_book_web.py",
+        "use": "@vercel/python"
       }
-  ],
-  "routes": [
+    ],
+    "routes": [
       {
-          "src": "/(.*)",
-          "dest": "conv_book_web.py"
+        "src": "/api/(.*)",
+        "dest": "/api"
       }
-  ]
-}
+    ]
