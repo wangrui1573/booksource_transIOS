@@ -45,6 +45,10 @@ def replace_selectors(json_data):
             for item in value:
                 if isinstance(item, dict):
                     replace_selectors(item)
+    
+    # 增加替换规则，当"ruleExplore": []时，替换为"ruleExplore": "##"
+    if "ruleExplore" in json_data and not json_data["ruleExplore"]:
+        json_data["ruleExplore"] = "##"
 
 if __name__ == "__main__":
     @app.route('/', methods=['GET', 'POST'])
