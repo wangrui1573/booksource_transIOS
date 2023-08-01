@@ -1,0 +1,61 @@
+[
+    {
+        "bookSourceComment": "https://m.88danmei.net\nhttps://m.dmwx.org",
+        "bookSourceGroup": "☣️精选senhora,🌹",
+        "bookSourceName": "🌹 耽美小说①",
+        "bookSourceType": 0,
+        "bookSourceUrl": "https://m.dmx5.com",
+        "bookUrlPattern": "",
+        "customOrder": -2086087799,
+        "enabled": true,
+        "enabledExplore": true,
+        "exploreUrl": "[{\"title\":\"榜单\",\"url\":\"\",\"style\":{\"layout_flexBasisPercent\":1,\"layout_flexGrow\":1}},\n{\"title\":\"总点击榜\",\"url\":\"/top/allvisit_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"总收藏榜\",\"url\":\"/top/goodnum_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"字数排行\",\"url\":\"/top/size_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"总推荐榜\",\"url\":\"/top/allvote_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"最新入库\",\"url\":\"/top/postdate_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"最近更新\",\"url\":\"/top/lastupdate_{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"分类\",\"url\":\"\",\"style\":{\"layout_flexBasisPercent\":1,\"layout_flexGrow\":1}},\n{\"title\":\"玄幻修仙\",\"url\":\"/list1/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"现代都市\",\"url\":\"/list2/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"古代架空\",\"url\":\"/list3/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"穿越重生\",\"url\":\"/list4/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"网游动漫\",\"url\":\"/list5/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"科幻未来\",\"url\":\"/list6/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"恐怖灵异\",\"url\":\"/list7/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"ＢＧ言情\",\"url\":\"/list8/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}},\n{\"title\":\"其他类型\",\"url\":\"/list9/{{page}}.html\",\"style\":{\"layout_flexBasisPercent\":0.25,\"layout_flexGrow\":1}}]",
+        "lastUpdateTime": 1690823379318,
+        "loginUrl": "",
+        "respondTime": 21887,
+        "ruleBookInfo": {
+            "author": "[property=\"og:novel:author\"]@content",
+            "coverUrl": "[property=\"og:image\"]@content",
+            "init": "",
+            "intro": "[property=\"og:description\"]@content##(^|[。！？]+[”」）】]?)##$1<br>",
+            "kind": "[property=\"og:novel:category\"]@content&&[property=\"og:novel:status\"]@content&&[property=\"og:novel:update_time\"]@content##\\s.*",
+            "lastChapter": "[property=\"og:novel:latest_chapter_name\"]@content",
+            "name": "[property=\"og:novel:book_name\"]@content",
+            "tocUrl": "text.查看目录@href",
+            "wordCount": ""
+        },
+        "ruleContent": {
+            "content": "#nr1@html@js:result+'下一页标识'",
+            "nextContentUrl": "text.下一页@href",
+            "replaceRegex": "##作者有话要.*|\\s*下一页标识\\s*|【更多.*书尽在.*dm.*】|紧急通知.*dm.*面需重复刷新！|紧急通知.*dm.*收藏！"
+        },
+        "ruleExplore": {
+            "author": "p:nth-child(2)@text##",
+            "bookList": ".block",
+            "bookUrl": "a:nth-child(2)@href",
+            "coverUrl": "img@src",
+            "intro": "p:nth-child(4)@text##文案",
+            "kind": "p:nth-child(3)@text##",
+            "name": "a:nth-child(2)@text"
+        },
+        "ruleSearch": {
+            "author": "a:nth-child(3)@text",
+            "bookList": ".block",
+            "bookUrl": "a:nth-child(2)@href",
+            "checkKeyWord": "本丸内",
+            "coverUrl": "img@src",
+            "intro": "",
+            "kind": "a:nth-child(4)@text",
+            "lastChapter": "a:nth-child(5)@text",
+            "name": "a:nth-child(2)@text"
+        },
+        "ruleToc": {
+            "chapterList": ".chapter li a",
+            "chapterName": "text",
+            "chapterUrl": "href",
+            "nextTocUrl": "text.下一页@href"
+        },
+        "searchUrl": "/s.php,{\"charset\":\"gbk\",\"method\":\"post\",\"body\":\"s={{key}}&type=articlename\",\"webView\":true}",
+        "weight": 0
+    }
+]

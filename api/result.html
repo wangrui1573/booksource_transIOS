@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>替换后的JSON内容</title>
+    <style>
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>替换后的JSON内容</h1>
+    <pre>{{ json_data | tojson(indent=4) }}</pre>
+    <a href="{{ download_link }}" download>下载替换后的JSON文件</a>
+</body>
+</html>

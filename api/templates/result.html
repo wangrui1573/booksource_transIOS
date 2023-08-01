@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>替换后的JSON内容</title>
+    <style>
+        body {
+            font-size: 9pt;
+            background-color: #f2f2f2; /* 灰色背景 */
+        }
+        pre {
+            white-space: pre-wrap;
+        }
+        #jsonData {
+            display: none;
+        }
+        #decodedJsonData {
+            display: block;
+        }
+        /* 添加黄色背景样式 */
+        p {
+            background-color: yellow;
+            padding: 5px; /* 可根据需要调整内边距 */
+        }
+    </style>
+    <script>
+        function decodeUnicode(str) {
+            return str.replace(/\\u([\dA-Fa-f]{4})/g, function (match, p1) {
+                return String.fromCharCode(parseInt(p1, 16));
+            });
+        }
+
+        function displayJsonData() {
+            const jsonData = document.getElementById('jsonData').innerText;
+            const decodedData = decodeUnicode(jsonData);
+            document.getElementById('decodedJsonData').innerText = JSON.stringify(JSON.parse(decodedData), null, 4);
+        }
+
+        window.onload = displayJsonData;
+    </script>
+</head>
+<body>
+    <h1>替换后的JSON内容</h1>
+    <p>原始下载链接：<a href="{{ download_link }}" download>{{ download_link }}</a></p>
+    <pre id="jsonData">{{ json_data | tojson(indent=4) }}</pre>
+    <pre id="decodedJsonData"></pre>
+    <a href="{{ download_link }}" download>下载替换后的JSON文件</a>
+</body>
+</html>
