@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "./api/conv_book_web.py",
+        "src": "./api/(.*)",
         "use": "@vercel/python"
       }
     ],
