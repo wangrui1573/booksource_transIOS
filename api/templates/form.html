@@ -1,14 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSON文件转换工具</title>
+    <title>源阅读书源转换工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f7f7f7;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 600px; /* Increase the width of the text input */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            padding: 8px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Added styles for hyperlinks and description */
+        .description {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .link-list li {
+            margin-bottom: 10px;
+        }
+
+        .link-list a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .link-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>JSON文件转换工具</h1>
+    <h1>源阅读书源转换工具</h1>
     <form action="/" method="post">
         <label for="json_url">请输入JSON文件的URL：</label>
         <input type="text" id="json_url" name="json_url" required>
         <input type="submit" value="转换">
     </form>
+
+    <div class="description">
+        <p>    Real    </p>
+        <p>本网站用户将源阅读的书源转换为IOS 源阅读的书源</p>
+        <ul class="link-list">
+            
+            <li>源仓库：<a href="https://www.yckceo.com/yuedu/shuyuan/index.html">https://www.yckceo.com/yuedu/shuyuan/index.html</a></li>
+            <li>阅读书源：<a href="https://yuedu.miaogongzi.net/gx.html">https://yuedu.miaogongzi.net/gx.html</a></li>
+        </ul>
+    </div>
 </body>
 </html>
