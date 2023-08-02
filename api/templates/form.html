@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>源阅读书源转换工具</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,7 +33,8 @@
 
         input[type="text"] {
             padding: 8px;
-            width: 600px; /* Increase the width of the text input */
+            width: 100%; /* Adjust the width to fill the container */
+            max-width: 600px; /* Set a maximum width for larger screens */
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -75,6 +77,14 @@
         .link-list a:hover {
             text-decoration: underline;
         }
+
+        /* Responsive styling for smaller screens */
+        @media only screen and (max-width: 768px) {
+            input[type="text"] {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -86,10 +96,9 @@
     </form>
 
     <div class="description">
-        <p>    Real    </p>
+        <p>Real</p>
         <p>本网站用于将源阅读的书源转换为IOS源阅读APP的书源</p>
         <ul class="link-list">
-            
             <li>源仓库：<a href="https://www.yckceo.com/yuedu/shuyuan/index.html">https://www.yckceo.com/yuedu/shuyuan/index.html</a></li>
             <li>阅读书源：<a href="https://yuedu.miaogongzi.net/gx.html">https://yuedu.miaogongzi.net/gx.html</a></li>
         </ul>
