@@ -37,6 +37,8 @@ def replace_selectors(json_data):
     for key, value in json_data.items():
         if isinstance(value, str):
             if "@" in value:
+                # 替换含有!0的选择器为:not(:first-child)
+                value = value.replace("!0", ":not(:first-child)")
                 value = replace_selector(value)
             json_data[key] = value
         elif isinstance(value, dict):
@@ -45,7 +47,11 @@ def replace_selectors(json_data):
             for item in value:
                 if isinstance(item, dict):
                     replace_selectors(item)
-    
+
+    # 在所有的bookSourceGroup中追加',real'
+    if "bookSourceGroup" in json_data and isinstance(json_data["bookSourceGroup"], str):
+        json_data["bookSourceGroup"] += ",real"
+
     # 增加替换规则，当"ruleExplore": []时，替换为"ruleExplore": "##"
     if "ruleExplore" in json_data and not json_data["ruleExplore"]:
         json_data["ruleExplore"] = "##"
@@ -80,6 +86,5 @@ if __name__ == "__main__":
         json_dir = os.path.join(os.path.dirname(__file__), 'json')
         file_path = os.path.join(json_dir, file_name)
         return send_from_directory(json_dir, file_name, as_attachment=True)
-
 
     app.run(host='0.0.0.0', port=5000, debug=True)
