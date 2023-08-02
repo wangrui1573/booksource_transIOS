@@ -33,11 +33,10 @@ def replace_selectors(json_data):
             replace_selectors(item)
         return
 
-    # 遍历字典类型的 JSON 数据，查找并替换选择器
+    # 替换含有!0的选择器为:not(:first-child)
     for key, value in json_data.items():
         if isinstance(value, str):
             if "@" in value:
-                # 替换含有!0的选择器为:not(:first-child)
                 value = value.replace("!0", ":not(:first-child)")
                 value = replace_selector(value)
             json_data[key] = value
@@ -55,6 +54,40 @@ def replace_selectors(json_data):
     # 增加替换规则，当"ruleExplore": []时，替换为"ruleExplore": "##"
     if "ruleExplore" in json_data and not json_data["ruleExplore"]:
         json_data["ruleExplore"] = "##"
+
+    # 遍历字典类型的 JSON 数据，查找并替换选择器
+    for key, value in json_data.items():
+        if isinstance(value, str):
+            if "@" in value:
+                value = value.replace(".0@", ":nth-child(1)@")
+                value = value.replace(".1@", ":nth-child(1)@")
+                value = value.replace(".2@", ":nth-child(2)@")
+                value = value.replace(".3@", ":nth-child(3)@")
+                value = value.replace(".4@", ":nth-child(4)@")
+                value = value.replace(".5@", ":nth-child(5)@")
+                value = value.replace(".6@", ":nth-child(6)@")
+                value = value.replace(".7@", ":nth-child(7)@")
+                value = value.replace(".8@", ":nth-child(8)@")
+                value = value.replace(".9@", ":nth-child(9)@")
+                value = value.replace(".-1@", ":nth-last-child(1)@")
+                value = value.replace(".-2@", ":nth-last-child(2)@")
+                value = value.replace(".-3@", ":nth-last-child(3)@")
+                value = value.replace(".-4@", ":nth-last-child(4)@")
+                value = value.replace(".-5@", ":nth-last-child(5)@")
+                value = value.replace(".-6@", ":nth-last-child(6)@")
+                value = value.replace(".-7@", ":nth-last-child(7)@")
+                value = value.replace(".-8@", ":nth-last-child(8)@")
+                value = value.replace(".-9@", ":nth-last-child(9)@")
+                value = value.replace(",{'webView': true}", "")
+
+                value = replace_selector(value)
+            json_data[key] = value
+        elif isinstance(value, dict):
+            replace_selectors(value)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, dict):
+                    replace_selectors(item)
 
 if __name__ == "__main__":
     @app.route('/', methods=['GET', 'POST'])
