@@ -79,12 +79,8 @@ app.post('/', async (req, res) => {
         const jsonData = processJsonData(response.data);
 
         const fileName = path.basename(jsonUrl);
-        const jsonDir = path.join(__dirname, 'json');
-        if (!fs.existsSync(jsonDir)) {
-            fs.mkdirSync(jsonDir);
-        }
+        const jsonPath = path.join('/tmp', fileName); // 文件保存在 /tmp 目录
 
-        const jsonPath = path.join(jsonDir, fileName);
         fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 4));
 
         const downloadLink = `/download/${fileName}`;
@@ -97,7 +93,7 @@ app.post('/', async (req, res) => {
 
 app.get('/download/:fileName', (req, res) => {
     const fileName = req.params.fileName;
-    const jsonPath = path.join(__dirname, 'json', fileName);
+    const jsonPath = path.join('/tmp', fileName); // 文件保存在 /tmp 目录
 
     res.download(jsonPath, fileName);
 });
