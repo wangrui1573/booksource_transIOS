@@ -6,16 +6,19 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 443;
 
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// 替换选择器函数
+// Replacement logic
 // 替换选择器函数
 function replaceSelectors(jsonData) {
 
     // 替换选择器
     function replaceSelector(selector) {
       // 实现代码
+      // 这里放置替换选择器的逻辑
+      return selector; // 返回修改后的选择器
     }
   
     // 处理列表
@@ -23,7 +26,7 @@ function replaceSelectors(jsonData) {
       jsonData.forEach(item => {
         replaceSelectors(item); 
       });
-      return;
+      return jsonData; // 返回修改后的数组
     }
   
     // 处理!0为:not(:first-child)
@@ -52,8 +55,18 @@ function replaceSelectors(jsonData) {
       }
     }
   
-  }
+    return jsonData; // 返回修改后的对象
+}
 
+function processJsonData(jsonData) {
+    // Your replace_selectors logic in JavaScript goes here
+    // Make sure to update the logic to process JSON data accordingly
+    // ...
+
+    return jsonData;
+}
+
+// Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'form.html'));
 });
@@ -63,11 +76,15 @@ app.post('/', async (req, res) => {
 
     try {
         const response = await axios.get(jsonUrl);
-        const jsonData = replaceSelectors(response.data);
+        const jsonData = processJsonData(response.data);
 
-        const fileName = jsonUrl.split('/').pop();
-        const jsonPath = path.join(__dirname, 'json', fileName);
+        const fileName = path.basename(jsonUrl);
+        const jsonDir = path.join(__dirname, 'json');
+        if (!fs.existsSync(jsonDir)) {
+            fs.mkdirSync(jsonDir);
+        }
 
+        const jsonPath = path.join(jsonDir, fileName);
         fs.writeFileSync(jsonPath, JSON.stringify(jsonData, null, 4));
 
         const downloadLink = `/download/${fileName}`;
