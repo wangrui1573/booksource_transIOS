@@ -1,35 +1,15 @@
 {
-    "version": 2,
-    "builds": [
-        {
-          "src": "./api/conv_book_web.py",
-          "use": "@vercel/python"
-        },
-        {
-          "src": "./json/**/*",
-          "use": "@vercel/static"
-        },
-        {
-            "src": "./templates/**/*",
-            "use": "@vercel/static"
-          },
-        {
-          "src": "./api/**/*",
-          "use": "@vercel/static"
-        }
-      ],
-    "routes": [
-     {
-          "src": "/json/(.*)",
-          "dest": "/api/json/$1"
-      },
-      {
-          "src": "/templates/(.*)",
-          "dest": "/api/templates/$1"
-      },
-      {
-          "src": "/(.*)",
-          "dest": "/api/$1"
-      }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.js"
+    }
+  ]
 }
