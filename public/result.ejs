@@ -1,0 +1,75 @@
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #f2f2f2; /* 灰色背景 */
+            margin: 20px;
+        }
+        pre {
+            white-space: pre-wrap;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #jsonData {
+            display: none;
+        }
+        #decodedJsonData {
+            display: block;
+            font-size: 9pt; /* Set the font size to 9pt */
+        }
+        /* 添加黄色背景样式 */
+        p {
+            background-color: #fff3cd;
+            padding: 10px; /* 可根据需要调整内边距 */
+            border-radius: 4px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Center align the h1 element */
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive styles for smaller screens */
+        @media only screen and (max-width: 768px) {
+            pre {
+                font-size: 12px; /* Reduce font size for smaller screens */
+            }
+        }
+    </style>
+   <script>
+    function decodeUnicode(str) {
+        return str.replace(/\\u([\dA-Fa-f]{4})/g, function (match, p1) {
+            return String.fromCharCode(parseInt(p1, 16));
+        });
+    }
+
+    function displayJsonData() {
+        const jsonData = document.getElementById('jsonData').innerText;
+        const decodedData = decodeUnicode(jsonData);
+        document.getElementById('decodedJsonData').innerText = JSON.stringify(JSON.parse(decodedData), null, 4);
+    }
+
+    window.onload = displayJsonData;
+</script>
+</head>
+<body>
+<h1>替换后的JSON内容</h1>
+<p>原始下载链接：<a href="<%= download_link %>" download><%= download_link %></a></p>
+<pre id="jsonData"><%- JSON.stringify(json_data, null, 4) %></pre>
+<pre id="decodedJsonData"></pre>
+<a href="<%= download_link %>" download>下载替换后的JSON文件</a>
+</body>
+</html>
+

@@ -2,8 +2,10 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+
 const app = express();
 const port = process.env.PORT || 443;
+
 app.use(express.urlencoded({ extended: true }));
 
 function replaceSelectors(jsonData) {
@@ -32,10 +34,12 @@ function replaceSelectors(jsonData) {
         }
         return selector;
     }
+
     if (Array.isArray(jsonData)) {
         jsonData.forEach(item => replaceSelectors(item));
         return;
     }
+
     for (const key in jsonData) {
         if (typeof jsonData[key] === 'string') {
             if (jsonData[key].includes('@')) {
@@ -46,13 +50,16 @@ function replaceSelectors(jsonData) {
             replaceSelectors(jsonData[key]);
         }
     }
+
     if (jsonData['bookSourceGroup'] && typeof jsonData['bookSourceGroup'] === 'string') {
         jsonData['bookSourceGroup'] += ',real';
     }
+
     if (jsonData['ruleExplore'] && jsonData['ruleExplore'].length === 0) {
         jsonData['ruleExplore'] = '##';
     }
-    // for (const key in jsonData) {
+
+        // for (const key in jsonData) {
     //     if (typeof jsonData[key] === 'string' && jsonData[key].includes('.@')) {
     //         jsonData[key] = jsonData[key].replace(/\.@/g, ':nth-child(').replace(/@/g, ')');
     //     }
@@ -93,62 +100,45 @@ function replaceSelectors(jsonData) {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public'));
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'public'))); // 设置静态资源目录
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'form.html'));
-});
-app.get('/list', (req, res) => {
-    const jsonDir = '/tmp';
-    
-    fs.readdir(jsonDir, (err, files) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send('Error reading directory');
-            return;
-        }
-
-        const jsonFiles = files.filter(file => file.endsWith('.json'));
-        
-        if (jsonFiles.length === 0) {
-            res.send('No JSON files found in the directory');
-            return;
-        }
-
-        let fileList = '<ul>';
-        jsonFiles.forEach(file => {
-            fileList += `<li><a href="/json/${file}" download>${file}</a></li>`;
-        });
-        fileList += '</ul>';
-
-        res.send(`JSON Files in ${jsonDir}: ${fileList}`);
-    });
 });
 
 app.post('/', async (req, res) => {
     const jsonUrl = req.body.json_url;
+    
     try {
         const response = await axios.get(jsonUrl);
         const json = response.data;
         replaceSelectors(json);
+
         const fileName = jsonUrl.split('/').pop();
-        const jsonDir = '/tmp'; // 修改为临时目录
+        const jsonDir = path.join(__dirname, 'json');
         if (!fs.existsSync(jsonDir)) {
             fs.mkdirSync(jsonDir);
         }
+
         const jsonPath = path.join(jsonDir, fileName);
         fs.writeFileSync(jsonPath, JSON.stringify(json, null, 4), 'utf-8');
+
         const downloadLink = `/json/${fileName}`;
         res.render('result', { json_data: json, download_link: downloadLink });
+
     } catch (error) {
         console.error(error);
         res.status(500).send('Error processing JSON data');
     }
 });
+
 app.get('/json/:file_name', (req, res) => {
-    const jsonDir = '/tmp'; // 修改为临时目录
+    const jsonDir = path.join(__dirname, 'json');
     const filePath = path.join(jsonDir, req.params.file_name);
     res.download(filePath);
 });
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
