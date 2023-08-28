@@ -65,11 +65,10 @@ function replaceSelectors(jsonData) {
         }
     }
 }
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // 设置静态资源目录
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'form.html'));
@@ -84,7 +83,7 @@ app.post('/', async (req, res) => {
         replaceSelectors(json);
 
         const fileName = jsonUrl.split('/').pop();
-        const jsonDir = '/tmp'; // 修改为临时目录
+        const jsonDir = path.join(__dirname, 'json');
         if (!fs.existsSync(jsonDir)) {
             fs.mkdirSync(jsonDir);
         }
@@ -102,7 +101,7 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/json/:file_name', (req, res) => {
-    const jsonDir = '/tmp'; // 修改为临时目录
+    const jsonDir = path.join(__dirname, 'json');
     const filePath = path.join(jsonDir, req.params.file_name);
     res.download(filePath);
 });
