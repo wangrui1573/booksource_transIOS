@@ -57,6 +57,12 @@ function replaceSelectors(jsonData) {
     //         jsonData[key] = jsonData[key].replace(/\.@/g, ':nth-child(').replace(/@/g, ')');
     //     }
     // }
+
+     // 替换漫画源
+     if (jsonData['bookSourceType'] === 2) {
+        jsonData['bookSourceType'] = 3;
+    }
+
     for (const key in jsonData) {
         if (typeof jsonData[key] === 'string') {
             if (jsonData[key].includes('@')) {
